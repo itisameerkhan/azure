@@ -31,6 +31,7 @@
 8. **ExpressRoute** 🚄
 9. **Application Gateway**   🚦 
 10. **DNS** 📒
+11. **CDN Profiles** 🌍
 
 ---
 
@@ -182,3 +183,34 @@
 * Azure Application Gateway is a Layer-7 (HTTP/HTTPS) load balancer designed specifically for web applications.
 
 * Unlike a normal Load Balancer, it understands web traffic (URLs, headers, cookies).
+
+* Azure Application Gateway is a web traffic load balancer that helps you manage traffic to your web applications. 
+
+* Unlike traditional load balancers that route traffic based on IP address and port, Application Gateway makes intelligent routing decisions based on HTTP request attributes like URL paths and host headers.
+
+* For example, you can route requests with `/images` in the URL to servers optimized for images, while routing `/video` requests to servers optimized for video content. This application layer routing gives you more control over how traffic flows to your applications.
+
+![demo](https://learn.microsoft.com/en-us/azure/application-gateway/media/application-gateway-url-route-overview/figure1-720.png)
+
+## 10. 📒 DNS Zones
+
+* **DNS (Domain Name System)** is like the phonebook of the internet. It translates human-readable domain names (like `google.com`) into IP addresses (like `142.250.190.46`).
+
+* **Azure DNS** is a hosting service for DNS domains that provides name resolution using Microsoft Azure infrastructure.
+
+* **DNS Zone:**
+    * A DNS zone is a container for the DNS records for a specific domain.
+    * For example, if you own the domain `contoso.com`, you create a DNS zone named `contoso.com` in Azure to host all the records (like `www.contoso.com`, `mail.contoso.com`) for that domain.
+
+## 11. 🌍 CDN Profiles
+
+* **CDN (Content Delivery Network)** is a distributed network of servers that can efficiently deliver web content to users.
+
+* **CDN Profile** is a collection of CDN endpoints.
+
+* It caches content (like images, videos, scripts) at edge servers close to the user.
+
+* **Analogy:**
+    * Think of it like Amazon delivery centers. Instead of shipping every package from one central warehouse (Origin Server) in New York to everywhere, they keep popular items in local delivery centers (Edge Servers) in every city. When you order, it comes from the nearest center, which is much faster.
+
+

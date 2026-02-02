@@ -34,7 +34,9 @@
 
 ---
 
-## 🌆 1. Virtual Network
+![demo](../assets/demo2.png)
+
+## 🗺️ 1. Virtual Network
 
 * A Virtual Network (VNet) in Azure is a private, isolated network where your Azure resources communicate securely.
 
@@ -59,3 +61,17 @@
 * VPN Gateways
 
 ---
+
+## 2. 🌆 Subnets
+
+* A Subnet is a smaller network inside a Virtual Network (VNet).
+
+* Subnet = a logical division of a VNet that helps organize, secure, and control network traffic.
+
+* A Subnet is a range of IP addresses inside a VNet.
+
+* It’s like dividing a city into different areas or colonies.
+
+* Each subnet has its own security rules (NSG).
+
+* You can place different types of resources in different subnets.

@@ -124,3 +124,64 @@ Azure Functions is a serverless compute service in Microsoft Azure that lets you
 * Runtime stack - `Node.js`
 * Version - `24LTS`
 * Region - `South India`
+
+### ⚡ Storage Account 
+
+![demo](../assets/demo18.png)
+
+Azure Functions require a Storage Account because Azure uses it internally to manage and run functions reliably. Even if your function code does not directly read or write files, the Functions runtime still depends on storage to keep track of configuration, execution state, triggers, and scaling information. Without a storage account, Azure would not be able to coordinate function execution, handle events correctly, or scale functions automatically.
+
+![dmo](../assets/demo19.png)
+
+In an Azure Function App, networking settings control how your functions are accessed and how they access other resources.. You can decide whether your function is publicly reachable from the internet and whether it can securely connect to resources inside an Azure Virtual Network (VNet). By default, a Function App is publicly accessible and cannot access private resources inside a VNet unless you enable integration.
+
+### Enable public access (On/Off)
+
+* **On**: Your Function App has a public internet endpoint. Anyone (with the correct URL and permissions) can call HTTP-triggered functions.
+
+* **Off**: The Function App is not accessible from the public internet. It can be accessed only from private networks or approved endpoints (used for high-security apps).
+
+### Enable virtual network integration (On/Off)
+
+* **On**: The Function App can connect to resources inside a VNet, such as private databases, private storage accounts, or internal APIs.
+
+* **Off**: The Function App can only reach public internet resources and cannot access private VNet resources.
+
+## ⚡Durable Functions
+
+![demo](../assets/demo20.png)
+
+Durable Functions let you build stateful, long-running workflows (orchestrations and entities) that run reliably even if there are failures or restarts. To make this possible, Azure needs a backend provider to store workflow state, execution history, and checkpoints. This screen lets you choose where and how that state is stored and managed.
+
+![demo](../assets/demo21.png)
+
+Continuous Deployment (CD) in an Azure Function App allows your function code to be automatically deployed from a GitHub repository whenever you push changes. This is done using GitHub Actions, so you don’t have to manually upload or redeploy code each time you make an update. It helps keep your deployed function always in sync with your source code.
+
+![demo](../assets/demo22.png)
+
+Resource authentication in an Azure Function App defines how the function securely connects to required Azure resources, especially storage accounts. Azure recommends using Managed Identity where possible, but some resources still use secrets (keys/connection strings). This screen shows which resources your Function App uses and what authentication method is configured for each one.
+
+## ⭐ Creating Functions in VS Code
+
+![demo](../assets/demo29.png)
+![demo](../assets/demo30.png)
+![demo](../assets/demo31.png)
+![demo](../assets/demo32.png)
+![demo](../assets/demo33.png)
+![demo](../assets/demo34.png)
+
+| **Trigger Name**                    | **What starts the function**  | **Typical Use Case**    | **Real-world example**        |
+| ----------------------------------- | ----------------------------- | ----------------------- | ----------------------------- |
+| **HTTP trigger**                    | HTTP request (GET/POST)       | APIs, backend services  | Call API from browser/Postman |
+| **Timer trigger**                   | Time schedule (cron)          | Scheduled jobs          | Run cleanup every night       |
+| **Azure Blob Storage trigger**      | Blob upload/change            | File processing         | Resize uploaded image         |
+| **Azure Blob trigger (Event Grid)** | Blob event via Event Grid     | Large-scale blob events | Process millions of uploads   |
+| **Azure Queue Storage trigger**     | Message in storage queue      | Background jobs         | Order processing              |
+| **Azure Cosmos DB trigger**         | Data change in Cosmos DB      | DB change reactions     | Send email on new user        |
+| **Azure Event Grid trigger**        | Event from Azure services     | Event-driven automation | VM created → run script       |
+| **Azure Event Hub trigger**         | Event stream message          | Streaming / IoT data    | Process sensor data           |
+| **Azure Service Bus Queue trigger** | Message in Service Bus queue  | Enterprise messaging    | Payment processing            |
+| **Azure Service Bus Topic trigger** | Message in topic subscription | Pub-Sub systems         | Notify multiple services      |
+| **Durable Functions orchestrator**  | Started by client or trigger  | Workflows               | Multi-step order process      |
+| **Durable Functions entity**        | Called by orchestrator        | State management        | Counter, inventory            |
+| **MCP Tool trigger**                | Tool-based automation         | AI / tool integrations  | Agent-driven tasks            |

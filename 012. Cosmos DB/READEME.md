@@ -494,3 +494,227 @@ This option allows you to set a maximum limit on the RU/s that can be provisione
 | Setting          | Selected Value | Purpose                                                |
 | ---------------- | -------------- | ------------------------------------------------------ |
 | Throughput Limit | Enabled        | Prevents unexpected high billing due to increased RU/s |
+
+![demo](../assets/demo43.png)
+
+### **Geo-Redundancy**
+
+Geo-Redundancy ensures that your data is replicated to another Azure region for disaster recovery. In your screenshot, it is set to **Enable**, which means Azure will maintain a backup copy of your data in a different geographical region. This improves reliability and protects against regional outages.
+
+| Setting        | Selected Value | Purpose                                           |
+| -------------- | -------------- | ------------------------------------------------- |
+| Geo-Redundancy | Enable         | Protects data by replicating it to another region |
+
+---
+
+### **Multi-Region Writes**
+
+Multi-Region Writes allows your application to write data to multiple regions simultaneously. In your setup, it is set to **Disable**, which means write operations will happen only in the primary region, while other regions (if added) will handle read operations. This setup is simpler and commonly used for learning or basic applications.
+
+| Setting             | Selected Value | Purpose                                                            |
+| ------------------- | -------------- | ------------------------------------------------------------------ |
+| Multi-Region Writes | Disable        | Allows writes only in the primary region for simpler configuration |
+
+![demo](../assets/demo44.png)
+
+### **Connectivity Method**
+
+Connectivity Method defines how applications can access your Azure Cosmos DB account. In your screenshot, **All networks** is selected, which means the database can be accessed from any public network over the internet (with proper keys or credentials). This is simple and suitable for learning or development, but for production environments, restricted or private access is recommended for better security.
+
+| Setting             | Selected Value | Purpose                               |
+| ------------------- | -------------- | ------------------------------------- |
+| Connectivity Method | All networks   | Allows access from any public network |
+
+---
+
+### **Minimum Transport Layer Security (TLS)**
+
+Minimum TLS defines the minimum security protocol required for connections to your Cosmos DB account. It is set to **TLS 1.2**, which ensures encrypted and secure communication between your application and the database. TLS protects data while it is being transmitted over the network.
+
+| Setting     | Selected Value | Purpose                                |
+| ----------- | -------------- | -------------------------------------- |
+| Minimum TLS | TLS 1.2        | Ensures secure encrypted communication |
+
+![demo](../assets/demo45.png)
+
+### **Backup Policy**
+
+Backup Policy defines how Azure Cosmos DB creates and stores backups of your data. In your setup, **Periodic** backup is selected, which means backups are taken automatically at fixed time intervals based on your configuration. This is the default and cost-effective option, commonly used for learning and standard workloads.
+
+| Setting       | Selected Value | Purpose                              |
+| ------------- | -------------- | ------------------------------------ |
+| Backup Policy | Periodic       | Takes backups at scheduled intervals |
+
+---
+
+### **Backup Interval**
+
+Backup Interval specifies how often Azure takes a backup. In your configuration, it is set to **240 minutes**, meaning a backup is created every 4 hours.
+
+| Setting         | Selected Value | Purpose                      |
+| --------------- | -------------- | ---------------------------- |
+| Backup Interval | 240 Minutes    | Creates backup every 4 hours |
+
+---
+
+### **Backup Retention**
+
+Backup Retention defines how long the backups are stored before being deleted. In your setup, it is set to **8 hours**, which means backups will be retained for 8 hours before being removed automatically.
+
+| Setting          | Selected Value | Purpose                        |
+| ---------------- | -------------- | ------------------------------ |
+| Backup Retention | 8 Hours        | Stores backup data for 8 hours |
+
+---
+
+### **Copies of Data Retained**
+
+This setting shows how many backup copies are maintained based on your interval and retention settings. In your case, **2 copies** of the data will be retained.
+
+| Setting         | Value | Purpose                                                |
+| --------------- | ----- | ------------------------------------------------------ |
+| Copies Retained | 2     | Number of backup copies stored within retention window |
+
+![demo](../assets/demo46.png)
+
+### **Key-Based Authentication**
+
+Key-Based Authentication allows access to your Cosmos DB account using account keys (primary and secondary keys). In your setup, it is set to **Enable**, which means applications can connect using these keys. This method is simple and commonly used for development, but for higher security in production, identity-based authentication (Microsoft Entra ID) is recommended.
+
+| Setting                  | Selected Value | Purpose                          |
+| ------------------------ | -------------- | -------------------------------- |
+| Key-Based Authentication | Enable         | Allows access using account keys |
+
+---
+
+### **Data Encryption**
+
+Data Encryption protects your data while it is stored in Azure data centers. In your configuration, **Service-managed key** is selected, which means Azure automatically manages the encryption keys for you. This is the default and simplest option. The alternative, Customer-Managed Key (CMK), allows you to control your own encryption keys for advanced security requirements.
+
+| Setting         | Selected Value      | Purpose                                     |
+| --------------- | ------------------- | ------------------------------------------- |
+| Data Encryption | Service-managed key | Azure manages encryption keys automatically |
+
+
+![demo](../assets/demo47.png)
+
+### ⚡ Creating a container
+
+### **Database ID**
+
+Database ID is the name of the database you are creating inside your Cosmos DB account. In your setup, it is set to **demo-database**, which means all containers you create under it will belong to this database. A database is mainly used to logically group related containers.
+
+| Setting     | Selected Value | Purpose                                       |
+| ----------- | -------------- | --------------------------------------------- |
+| Database ID | demo-database  | Logical container to group related containers |
+
+---
+
+### **Container ID**
+
+Container ID is the name of the container where your actual data (documents/items) will be stored. In your setup, it is **demo-container**. A container is the most important unit because it stores data and manages throughput and partitioning.
+
+| Setting      | Selected Value | Purpose                              |
+| ------------ | -------------- | ------------------------------------ |
+| Container ID | demo-container | Stores documents and manages scaling |
+
+---
+
+### **Partition Key**
+
+Partition Key decides how your data will be distributed inside the container. In your setup, it is set to **/demo-partition**, which means Cosmos DB will look at the `demo-partition` field inside each document to group and distribute data. This key is very important for performance and scalability.
+
+Example document:
+
+```json
+{
+  "id": "1",
+  "demo-partition": "A",
+  "name": "Ameer"
+}
+```
+
+All documents with the same `demo-partition` value will be stored together in the same logical partition.
+
+| Setting       | Selected Value  | Purpose                                        |
+| ------------- | --------------- | ---------------------------------------------- |
+| Partition Key | /demo-partition | Determines how data is grouped and distributed |
+
+---
+
+### **One Simple Understanding**
+
+Database = Folder
+Container = Storage box inside folder
+Partition Key = Rule that decides how items inside the box are grouped
+
+If you want, I can explain whether **/demo-partition** is a good partition key choice or not.
+
+![demo](../assets/demo50.png)
+![demo](../assets/demo49.png)
+
+### **Container Throughput (Autoscale)**
+
+Container Throughput defines how much performance (Request Units per second – RU/s) your container can use. In your setup, **Autoscale** is selected, which means Azure will automatically adjust the RU/s based on traffic. It can scale between 10% of the maximum value and the maximum value you set.
+
+In your configuration, the **Maximum RU/s is 1000**, so Azure will automatically scale between **100 RU/s (minimum)** and **1000 RU/s (maximum)** depending on demand.
+
+| Setting         | Selected Value | Purpose                                     |
+| --------------- | -------------- | ------------------------------------------- |
+| Throughput Mode | Autoscale      | Automatically adjusts RU/s based on traffic |
+| Minimum RU/s    | 100            | Lowest performance level (10% of max)       |
+| Maximum RU/s    | 1000           | Highest performance limit                   |
+
+---
+
+### **Estimated Monthly Cost**
+
+The estimated cost shown is based on the selected maximum RU/s and region. Since you selected up to **1000 RU/s**, the estimated monthly cost is shown between **$8.76 – $87.60**, depending on usage. With Free Tier enabled, the first 1000 RU/s may be free (based on eligibility).
+
+| Setting        | Value          | Purpose                                            |
+| -------------- | -------------- | -------------------------------------------------- |
+| Estimated Cost | $8.76 – $87.60 | Monthly estimate based on throughput configuration |
+
+---
+
+![demo](../assets/demo51.png)
+
+### **Items Section**
+
+The Items section is where you can view, create, edit, and query the actual data stored inside your container. In your screenshot, you are inside **demo-database → demo-container → Items**. This is the place where all JSON documents (records) are stored and managed.
+
+| Section   | Value          | Purpose                        |
+| --------- | -------------- | ------------------------------ |
+| Database  | demo-database  | Logical grouping of containers |
+| Container | demo-container | Stores documents               |
+| Items     | Selected       | View and manage stored data    |
+
+---
+
+### **Query Editor**
+
+At the top, you can see a query window with:
+
+`SELECT * FROM c`
+
+This is the default SQL query used to retrieve all documents inside the container. You can modify this query to filter data based on conditions.
+
+| Query           | Meaning                                |
+| --------------- | -------------------------------------- |
+| SELECT * FROM c | Returns all documents in the container |
+
+---
+
+### **Left Panel Options**
+
+Below the container, you also see options like:
+
+* Scale & Settings
+* Stored Procedures
+* User Defined Functions
+* Triggers
+
+These are advanced features used for scaling and server-side logic.
+
+---
+

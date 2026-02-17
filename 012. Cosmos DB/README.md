@@ -719,3 +719,98 @@ These are advanced features used for scaling and server-side logic.
 ---
 
 ## ⭐ Adding data to the databse
+
+![demo](../assets/demo52.png)
+
+```json
+{
+    "id": "1",
+    "name": "ameer",
+    "email": "itisameerkhan@gmail.com",
+    "phone": 8838051597,
+    "_rid": "QJgbANPCpbsBAAAAAAAAAA==",
+    "_self": "dbs/QJgbAA==/colls/QJgbANPCpbs=/docs/QJgbANPCpbsBAAAAAAAAAA==/",
+    "_etag": "\"350051af-0000-0800-0000-6993eeff0000\"",
+    "_attachments": "attachments/",
+    "_ts": 1771302655
+}
+```
+
+### **System-Generated Properties (Extra Fields Added by Azure)**
+
+The extra fields starting with `_` are automatically added by Azure Cosmos DB. These are **system-generated properties** used internally by Cosmos DB to manage the document. You do not need to create or manage them manually. They help with identification, version control, storage, and tracking changes.
+
+| Field          | Meaning          | Purpose                                               |
+| -------------- | ---------------- | ----------------------------------------------------- |
+| `_rid`         | Resource ID      | Internal unique identifier used by Cosmos DB          |
+| `_self`        | Self link        | Internal path reference of the document               |
+| `_etag`        | Entity tag       | Used for concurrency control (tracks version changes) |
+| `_attachments` | Attachments link | Used if the document has file attachments             |
+| `_ts`          | Timestamp        | Last modified time (Unix timestamp format)            |
+
+---
+
+### **Simple Explanation**
+
+When you create a document like this:
+
+```json
+{
+  "id": "1",
+  "name": "ameer",
+  "email": "itisameerkhan@gmail.com",
+  "phone": 8838051597
+}
+```
+
+Azure automatically adds extra metadata fields to:
+
+* Track when it was updated
+* Manage versions
+* Identify it internally
+* Handle attachments
+* Control concurrent updates
+
+---
+
+### **Important Note**
+
+* You should not modify or delete these system fields.
+* They are automatically managed by Cosmos DB.
+* In real applications, you mostly ignore them unless using advanced features like concurrency control (`_etag`).
+
+---
+
+![demo](../assets/demo53.png)
+
+### ✨ Query Stats
+
+![demo](../assets/demo54.png)
+
+### **Query Stats**
+
+Query Stats shows the performance details of the query you executed (`SELECT * FROM c`). It helps you understand how many Request Units (RUs) were consumed, how many documents were scanned, and how efficiently the query ran. This section is mainly used to monitor performance and cost.
+
+| Metric                   | Value     | Meaning                       |
+| ------------------------ | --------- | ----------------------------- |
+| Request Charge           | 2.28 RUs  | Cost of running this query    |
+| Showing Results          | 1–2       | Number of records displayed   |
+| Retrieved Document Count | 2         | Documents read from storage   |
+| Retrieved Document Size  | 320 bytes | Size of data read             |
+| Output Document Count    | 2         | Documents returned in result  |
+| Output Document Size     | 612 bytes | Size of result data returned  |
+| Index Hit Document Count | 2         | Documents matched using index |
+
+---
+
+### **What This Means in Simple Words**
+
+* Your query cost **2.28 RU** to execute.
+* Cosmos DB read **2 documents**.
+* Both were returned as results.
+* The query used the index efficiently (good performance).
+* The total data size was small, so RU consumption was low.
+
+---
+
+![demo](../assets/demo55.png) 

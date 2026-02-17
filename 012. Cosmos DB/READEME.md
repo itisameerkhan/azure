@@ -718,3 +718,4 @@ These are advanced features used for scaling and server-side logic.
 
 ---
 
+## ⭐ Adding data to the databse
